@@ -7,13 +7,13 @@ app = Flask("Emotion Detector")
 def emo_dectector():
      text_to_analyze = request.args.get('textToAnalyze')
      response = emotion_detector(text_to_analyze)
-     emotion_name=response.pop(['Dominant Emotion'])
+     all_emotions=response['anger', 'disgust', 'fear','joy', 'sadness']
      dominant_emotion=response['Dominant Emotion']
 
      if emotion_name is None:
         return "Invalid input ! Try again."
      else:
-         return "For the given statement, the system response is {}.The dominant emotion is {}".format(emotion_name,dominant_emotion)
+        return "For the given statement, the system response is {}.The dominant emotion is {}".format(all_emotions,dominant_emotion)
 
 @app.route("/")
 def render_index_page():
@@ -21,3 +21,4 @@ def render_index_page():
     
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+    
