@@ -8,17 +8,21 @@ def emo_dectector():
     """emotion detector app test"""
     text_to_analyze = request.args.get('textToAnalyze')
     response = emotion_detector(text_to_analyze)
-    dominant_emotion= response['Dominant emotion']
-    all_emotions= response
-    all_emotions.pop('Dominant emotion')
-    if dominant_emotion is None:
-        return "Invalid input ! Try again."
+
+    if response['dominant_emotion'] is None:
+        response_text = "Invalid Input! Please try again."
     else:
-        return "For the given statement, the system response is {}.The dominant emotion is {}".format(str(all_emotions).replace("{","").replace("}",""),dominant_emotion)
+        response_text = f"For the given statement, the system response is 'anger': \
+                    {response['anger']}, 'disgust': {response['disgust']}, \
+                    'fear': {response['fear']}, 'joy': {response['joy']}, \
+                    'sadness': {response['sadness']}. The dominant emotion is \
+                    {response['dominant_emotion']}."
+
+    return response_text
 @app.errorhandler(500)
 def internal_error():
     """internal error handling"""
-    return "Invalid text! Please try again!"
+    return "Invalid Input! Please try again."
 @app.route("/")
 def render_index_page():
     """referencing index page and port"""
