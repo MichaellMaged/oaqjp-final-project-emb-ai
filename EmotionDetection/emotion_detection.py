@@ -13,4 +13,3 @@ def emotion_detector(text_to_analyse):
     dominant_emotion=max(emotion_response, key=lambda key: emotion_response[key])
     emotion_response.update({'Dominant emotion':dominant_emotion})
     return emotion_response
-    
